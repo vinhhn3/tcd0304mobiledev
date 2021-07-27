@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { SectionList, StyleSheet, Text, View } from "react-native";
+import {
+  RefreshControl,
+  SectionList,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 export default function App() {
   // Properties
@@ -27,7 +33,7 @@ export default function App() {
 
   const [refreshing, setRefreshing] = useState(false);
 
-  const DATA = [
+  const [DATA, setDATA] = useState([
     {
       title: "title-1",
       data: ["item 1-1", "item 1-2", "item 1-3"],
@@ -40,23 +46,31 @@ export default function App() {
       title: "title-3",
       data: ["item 3-1", "item 3-2", "item 3-3"],
     },
-  ];
+    {
+      title: "title-3",
+      data: ["item 3-1", "item 3-2", "item 3-3"],
+    },
+    {
+      title: "title-3",
+      data: ["item 3-1", "item 3-2", "item 3-3"],
+    },
+  ]);
 
   const onRefresh = () => {
     setRefreshing(true);
-    setItems([
-      ...items,
+    setDATA([
+      ...DATA,
       {
-        key: 20,
-        title: "title 20",
+        title: "title 100",
+        data: ["item 100-1", "item 100-2", "item 100-3"],
       },
       {
-        key: 21,
-        title: "title 21",
+        title: "title 200",
+        data: ["item 200-1", "item 200-2", "item 200-3"],
       },
       {
-        key: 22,
-        title: "title 22",
+        title: "title 300",
+        data: ["item 300-1", "item 300-2", "item 300-3"],
       },
     ]);
     setRefreshing(false);
@@ -64,10 +78,13 @@ export default function App() {
 
   return (
     <SectionList
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
       keyExtractor={(item, index) => index.toString()}
       sections={DATA}
       renderItem={({ item }) => (
-        <View>
+        <View style={styles.childItem}>
           <Text style={styles.text}>{item.toString()}</Text>
         </View>
       )}
@@ -127,10 +144,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  childItem: {
+    backgroundColor: "red",
+    margin: 10,
+  },
 
   text: {
     fontSize: 20,
     textTransform: "uppercase",
-    color: "white",
+    color: "black",
   },
 });
