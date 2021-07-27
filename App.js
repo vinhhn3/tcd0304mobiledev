@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  RefreshControl,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { FlatList, RefreshControl, StyleSheet, Text, View } from "react-native";
 
 export default function App() {
   // Properties
@@ -37,7 +31,6 @@ export default function App() {
     setRefreshing(true);
     setItems([
       ...items,
-
       {
         key: 20,
         title: "title 20",
@@ -56,20 +49,34 @@ export default function App() {
 
   return (
     // <ScrollView style={styles.container} horizontal={true}>
-    <ScrollView
+    // <ScrollView
+    //   refreshControl={
+    //     <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+    //   }
+    //   style={styles.container}
+    // >
+    //   {items.map((item) => {
+    //     return (
+    //       <View style={styles.item} key={item.key}>
+    //         <Text style={styles.text}>Title: {item.title}</Text>
+    //       </View>
+    //     );
+    //   })}
+    // </ScrollView>
+    <FlatList
+      // numColumns={4}
+      // horizontal
+      // inverted
+      data={items}
+      renderItem={({ item }) => (
+        <View style={styles.item} key={item.id}>
+          <Text style={styles.text}>{item.title}</Text>
+        </View>
+      )}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
-      style={styles.container}
-    >
-      {items.map((item) => {
-        return (
-          <View style={styles.item} key={item.key}>
-            <Text style={styles.text}>Title: {item.title}</Text>
-          </View>
-        );
-      })}
-    </ScrollView>
+    />
   );
 }
 
