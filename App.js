@@ -1,6 +1,5 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 export default function App() {
   // Properties
@@ -18,28 +17,53 @@ export default function App() {
 
   // main() function
   return (
-    // View = <div class='container'>
     <View style={styles.container}>
-      <Text style={styles.text}>Hello Wolrd !!!</Text>
-      <Text
-      // style={{
-      //   backgroundColor: "blue",
-      // }}
-      >
-        Counter: {counter}
-      </Text>
-      <Text>{name}</Text>
-      <Button onPress={increaseCounter} title="Increase" color="#006400" />
-      <Button onPress={decreaseCounter} title="Decrease" />
-      <StatusBar style="auto" />
+      <View>
+        <Text style={styles.view1}>View 1</Text>
+      </View>
+      <View>
+        <Text style={styles.view2}>View 2</Text>
+      </View>
+      <View>
+        <Text style={styles.view3}>View 3</Text>
+      </View>
     </View>
   );
 }
 
+//
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // flexDirection: "column-reverse",
+    // flexDirection: "row",
+    flexDirection: "row-reverse",
     backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  view1: {
+    // flex: 1,
+    height: 100,
+    width: 100,
+    backgroundColor: "#00ffff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  view2: {
+    // flex: 1,
+    height: 100,
+    width: 100,
+    backgroundColor: "#0000ff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  view3: {
+    // flex: 1,
+    height: 100,
+    width: 100,
+    backgroundColor: "#00ff00",
     alignItems: "center",
     justifyContent: "center",
   },
