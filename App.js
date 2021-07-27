@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 export default function App() {
   // Properties
@@ -25,8 +31,37 @@ export default function App() {
     { key: 19, title: "title 19" },
   ]);
 
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    setItems([
+      ...items,
+
+      {
+        key: 20,
+        title: "title 20",
+      },
+      {
+        key: 21,
+        title: "title 21",
+      },
+      {
+        key: 22,
+        title: "title 22",
+      },
+    ]);
+    setRefreshing(false);
+  };
+
   return (
-    <ScrollView style={styles.container}>
+    // <ScrollView style={styles.container} horizontal={true}>
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+      style={styles.container}
+    >
       {items.map((item) => {
         return (
           <View style={styles.item} key={item.key}>
