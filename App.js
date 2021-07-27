@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 export default function App() {
   // Properties
@@ -12,10 +12,21 @@ export default function App() {
     { key: 6, title: "title 6" },
     { key: 7, title: "title 7" },
     { key: 8, title: "title 8" },
+    { key: 9, title: "title 9" },
+    { key: 10, title: "title 10" },
+    { key: 11, title: "title 11" },
+    { key: 12, title: "title 12" },
+    { key: 13, title: "title 13" },
+    { key: 14, title: "title 14" },
+    { key: 15, title: "title 15" },
+    { key: 16, title: "title 16" },
+    { key: 17, title: "title 17" },
+    { key: 18, title: "title 18" },
+    { key: 19, title: "title 19" },
   ]);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       {items.map((item) => {
         return (
           <View style={styles.item} key={item.key}>
@@ -23,7 +34,7 @@ export default function App() {
           </View>
         );
       })}
-    </View>
+    </ScrollView>
   );
 }
 
@@ -36,12 +47,12 @@ const styles = StyleSheet.create({
     // flexDirection: "row",
     // flexDirection: "row-reverse",
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    // alignItems: "center",
+    // justifyContent: "center",
   },
   item: {
     margin: 10,
-    backgroundColor: "red",
+    backgroundColor: "blue",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -49,5 +60,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     textTransform: "uppercase",
+    color: "white",
   },
 });
