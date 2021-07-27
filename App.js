@@ -1,11 +1,7 @@
 import React, { useState } from "react";
-import {
-  RefreshControl,
-  SectionList,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { RefreshControl, SectionList, StyleSheet } from "react-native";
+import SectionHeader from "./components/SectionHeader";
+import SectionItem from "./components/SectionItem";
 
 export default function App() {
   // Properties
@@ -84,14 +80,16 @@ export default function App() {
       keyExtractor={(item, index) => index.toString()}
       sections={DATA}
       renderItem={({ item }) => (
-        <View style={styles.childItem}>
-          <Text style={styles.text}>{item.toString()}</Text>
-        </View>
+        // <View style={styles.childItem}>
+        //   <Text style={styles.text}>{item}</Text>
+        // </View>
+        <SectionItem />
       )}
       renderSectionHeader={({ section }) => (
-        <View style={styles.item}>
-          <Text style={styles.text}>{section.title}</Text>
-        </View>
+        // <View style={styles.item}>
+        //   <Text style={styles.text}>{section.title}</Text>
+        // </View>
+        <SectionHeader />
       )}
     />
     // <ScrollView style={styles.container} horizontal={true}>
