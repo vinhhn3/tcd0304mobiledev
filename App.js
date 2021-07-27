@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FlatList, RefreshControl, StyleSheet, Text, View } from "react-native";
+import { SectionList, StyleSheet, Text, View } from "react-native";
 
 export default function App() {
   // Properties
@@ -27,6 +27,21 @@ export default function App() {
 
   const [refreshing, setRefreshing] = useState(false);
 
+  const DATA = [
+    {
+      title: "title-1",
+      data: ["item 1-1", "item 1-2", "item 1-3"],
+    },
+    {
+      title: "title-2",
+      data: ["item 2-1", "item 2-2", "item 2-3"],
+    },
+    {
+      title: "title-3",
+      data: ["item 3-1", "item 3-2", "item 3-3"],
+    },
+  ];
+
   const onRefresh = () => {
     setRefreshing(true);
     setItems([
@@ -48,6 +63,20 @@ export default function App() {
   };
 
   return (
+    <SectionList
+      keyExtractor={(item, index) => index.toString()}
+      sections={DATA}
+      renderItem={({ item }) => (
+        <View>
+          <Text style={styles.text}>{item.toString()}</Text>
+        </View>
+      )}
+      renderSectionHeader={({ section }) => (
+        <View style={styles.item}>
+          <Text style={styles.text}>{section.title}</Text>
+        </View>
+      )}
+    />
     // <ScrollView style={styles.container} horizontal={true}>
     // <ScrollView
     //   refreshControl={
@@ -63,20 +92,20 @@ export default function App() {
     //     );
     //   })}
     // </ScrollView>
-    <FlatList
-      // numColumns={4}
-      // horizontal
-      // inverted
-      data={items}
-      renderItem={({ item }) => (
-        <View style={styles.item} key={item.id}>
-          <Text style={styles.text}>{item.title}</Text>
-        </View>
-      )}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
-    />
+    // <FlatList
+    //   // numColumns={4}
+    //   // horizontal
+    //   // inverted
+    //   data={items}
+    //   renderItem={({ item }) => (
+    //     <View style={styles.item} key={item.id}>
+    //       <Text style={styles.text}>{item.title}</Text>
+    //     </View>
+    //   )}
+    //   refreshControl={
+    //     <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+    //   }
+    // />
   );
 }
 
