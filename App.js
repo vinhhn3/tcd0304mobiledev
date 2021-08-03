@@ -1,26 +1,50 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function App() {
   // Properties
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  const clearInput = () => {
+    setSubmitted(false);
+    setName("");
+    setAddress("");
+  };
 
   return (
     <View style={styles.body}>
       <Text style={styles.text}>Text Input and Keyboard</Text>
       <TextInput
+        value={name}
         style={styles.input}
         onChangeText={(value) => setName(value)}
         placeholder="Enter your name ..."
       />
       <TextInput
+        value={address}
         style={styles.input}
         onChangeText={(value) => setAddress(value)}
         placeholder={"Enter your address ..."}
       />
-      <Text style={styles.text}>Your name is: {name}</Text>
-      <Text style={styles.text}>Your Address is: {address}</Text>
+      <Button // Component button
+        title="Submit"
+        onPress={() => setSubmitted(true)}
+      />
+
+      {submitted ? (
+        <View>
+          <Button // Component button
+            title="Clear"
+            onPress={clearInput}
+          />
+          <Text style={styles.text}>Your name is: {name}</Text>
+          <Text style={styles.text}>Your Address is: {address}</Text>
+        </View>
+      ) : (
+        <Text>Nothing to show</Text>
+      )}
     </View>
   );
 }
