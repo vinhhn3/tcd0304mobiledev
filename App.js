@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 export default function App() {
   // Properties
@@ -7,10 +13,12 @@ export default function App() {
   const [address, setAddress] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  const clearInput = () => {
-    setSubmitted(false);
-    setName("");
-    setAddress("");
+  const handleSubmit = () => {
+    setSubmitted(!submitted);
+    if (submitted) {
+      setName("");
+      setAddress("");
+    }
   };
 
   return (
@@ -28,17 +36,12 @@ export default function App() {
         onChangeText={(value) => setAddress(value)}
         placeholder={"Enter your address ..."}
       />
-      <Button // Component button
-        title="Submit"
-        onPress={() => setSubmitted(true)}
-      />
+      <TouchableOpacity onPress={handleSubmit} style={styles.button}>
+        <Text style={styles.text}>{submitted ? "Clear" : "Submit"}</Text>
+      </TouchableOpacity>
 
       {submitted ? (
         <View>
-          <Button // Component button
-            title="Clear"
-            onPress={clearInput}
-          />
           <Text style={styles.text}>Your name is: {name}</Text>
           <Text style={styles.text}>Your Address is: {address}</Text>
         </View>
@@ -67,5 +70,13 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
+  },
+  button: {
+    backgroundColor: "#00ff00",
+    width: 150,
+    height: 50,
+    alignItems: "center",
+    borderRadius: 10,
+    justifyContent: "center",
   },
 });
