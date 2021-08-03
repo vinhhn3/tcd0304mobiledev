@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  Alert,
   StyleSheet,
   Text,
   TextInput,
@@ -14,10 +15,35 @@ export default function App() {
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = () => {
-    setSubmitted(!submitted);
-    if (submitted) {
-      setName("");
-      setAddress("");
+    if (name.length < 3 || address.length < 3) {
+      Alert.alert(
+        "Warning",
+        "Name and address must be longer than 3 characters",
+        [
+          {
+            text: "Ok",
+            onPress: () => console.warn("Ok Pressed !!!"),
+          },
+          {
+            text: "Cancel",
+            onPress: () => console.warn("Cancel Pressed !!!"),
+          },
+          {
+            text: "Do not show again",
+            onPress: () => console.warn("Do not show again Pressed !!!"),
+          },
+        ],
+        {
+          cancelable: true,
+          onDismiss: () => console.warn("Alert Canceled!!!"),
+        }
+      );
+    } else {
+      setSubmitted(!submitted);
+      if (submitted) {
+        setName("");
+        setAddress("");
+      }
     }
   };
 
