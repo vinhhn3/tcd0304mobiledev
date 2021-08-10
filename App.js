@@ -1,12 +1,7 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  ToastAndroid,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { StyleSheet, Text, TextInput, ToastAndroid, View } from "react-native";
+import CustomButton from "./components/CustomButton";
+import SectionHeader from "./components/SectionHeader";
 
 export default function App() {
   // Properties
@@ -56,6 +51,7 @@ export default function App() {
 
   return (
     <View style={styles.body}>
+      <SectionHeader />
       <Text style={styles.text}>Text Input and Keyboard</Text>
       <TextInput
         value={name}
@@ -69,9 +65,13 @@ export default function App() {
         onChangeText={(value) => setAddress(value)}
         placeholder={"Enter your address ..."}
       />
-      <TouchableOpacity onPress={handleSubmit} style={styles.button}>
+      {/* <TouchableOpacity onPress={handleSubmit} style={styles.button}>
         <Text style={styles.text}>{submitted ? "Clear" : "Submit"}</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
+      <CustomButton
+        handlePress={handleSubmit}
+        text={submitted ? "Clear" : "Submit"}
+      />
 
       {submitted ? (
         <View>
