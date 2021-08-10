@@ -39,6 +39,7 @@ export default function App() {
         <Drawer.Screen
           options={{
             title: "Screen A Title",
+            // eslint-disable-next-line react/display-name
             drawerIcon: () => (
               <Ionicons name="settings" size={24} color="black" />
             ),
@@ -49,6 +50,7 @@ export default function App() {
         <Drawer.Screen
           options={{
             title: "Screen B Title",
+            // eslint-disable-next-line react/display-name
             drawerIcon: () => (
               <Ionicons name="md-person" size={24} color="black" />
             ),

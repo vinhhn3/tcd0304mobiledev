@@ -2,7 +2,9 @@ import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 
-export default function ScreenA({ navigation }) {
+const ScreenA = ({ navigation, route }) => {
+  const { item } = route.params;
+
   const onPressHanlder = () => {
     navigation.navigate("ScreenB");
   };
@@ -12,9 +14,11 @@ export default function ScreenA({ navigation }) {
       <Ionicons name="md-person" size={30} color="black" />
       <Text style={styles.text}>Screen A</Text>
       <Button title="Go to Screen B" onPress={onPressHanlder} />
+      <Text>{item.id}</Text>
+      <Text>{item.name}</Text>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   body: {
@@ -28,3 +32,5 @@ const styles = StyleSheet.create({
     margin: 10,
   },
 });
+
+export default ScreenA;
