@@ -36,8 +36,16 @@ export default function App() {
           },
         })}
       >
-        <Tab.Screen name="ScreenA" component={ScreenA} />
-        <Tab.Screen name="ScreenB" component={ScreenB} />
+        <Tab.Screen
+          name="ScreenA"
+          component={ScreenA}
+          options={{ tabBarBadge: 3 }}
+        />
+        <Tab.Screen
+          name="ScreenB"
+          component={ScreenB}
+          options={{ tabBarBadge: 2 }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
