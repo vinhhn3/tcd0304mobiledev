@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 
-const ScreenB = ({ navigation }) => {
+const ScreenB = ({ navigation, route }) => {
+  const { itemName, itemId } = route.params;
+
   const [item, setItem] = useState({
     id: 12,
     name: "This is item from screen B",
@@ -10,6 +12,8 @@ const ScreenB = ({ navigation }) => {
   const onPressHanlder = () => {
     navigation.navigate("ScreenA", {
       item: item,
+      itemName: itemName,
+      itemId: itemId,
     });
   };
 
@@ -17,6 +21,8 @@ const ScreenB = ({ navigation }) => {
     <View style={styles.body}>
       <Text style={styles.text}>Screen B</Text>
       <Button title="Go to Screen A" onPress={onPressHanlder} />
+      <Text>{itemName}</Text>
+      <Text>{itemId}</Text>
     </View>
   );
 };

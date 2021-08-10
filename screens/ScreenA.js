@@ -4,6 +4,7 @@ import { Button, StyleSheet, Text, View } from "react-native";
 
 const ScreenA = ({ navigation, route }) => {
   const { item } = route.params;
+  const { itemName, itemId } = route.params;
 
   const onPressHanlder = () => {
     navigation.navigate("ScreenB");
@@ -16,6 +17,8 @@ const ScreenA = ({ navigation, route }) => {
       <Button title="Go to Screen B" onPress={onPressHanlder} />
       <Text>{item.id}</Text>
       <Text>{item.name}</Text>
+      <Text>{itemName}</Text>
+      <Text>{itemId}</Text>
     </View>
   );
 };

@@ -57,6 +57,10 @@ export default function App() {
           }}
           name="ScreenB"
           component={ScreenB}
+          initialParams={{
+            itemName: "This is initial Params",
+            itemId: 100,
+          }}
         />
       </Drawer.Navigator>
     </NavigationContainer>
