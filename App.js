@@ -16,6 +16,18 @@ export default function App() {
   return (
     <NavigationContainer>
       <Drawer.Navigator
+        screenOptions={{
+          headerTitleStyle: {
+            fontSize: 25,
+            fontWeight: "bold",
+          },
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: "#0000ff",
+          },
+          headerTitleAlign: "center",
+          headerTintColor: "#ffffff",
+        }}
         drawerStyle={{
           backgroundColor: "#e6e6e6",
           width: 250,
@@ -26,9 +38,9 @@ export default function App() {
       >
         <Drawer.Screen
           options={{
-            title: "This is Screen B Title",
+            title: "Screen A Title",
             drawerIcon: () => (
-              <Ionicons name="md-person" size={24} color="black" />
+              <Ionicons name="settings" size={24} color="black" />
             ),
           }}
           name="ScreenA"
@@ -36,7 +48,7 @@ export default function App() {
         />
         <Drawer.Screen
           options={{
-            title: "This is Screen B Title",
+            title: "Screen B Title",
             drawerIcon: () => (
               <Ionicons name="md-person" size={24} color="black" />
             ),
