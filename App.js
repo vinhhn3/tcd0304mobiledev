@@ -1,5 +1,5 @@
-import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import { StyleSheet } from "react-native";
@@ -9,44 +9,15 @@ import ScreenB from "./screens/ScreenB";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused }) => {
-            if (route.name === "ScreenA") {
-              return (
-                <FontAwesome
-                  name="bars"
-                  size={24}
-                  color={focused ? "#f0f" : "#555"}
-                />
-              );
-            } else if (route.name === "ScreenB") {
-              return (
-                <Ionicons
-                  name="md-person"
-                  size={24}
-                  color={focused ? "#f0f" : "#555"}
-                />
-              );
-            }
-          },
-        })}
-      >
-        <Tab.Screen
-          name="ScreenA"
-          component={ScreenA}
-          options={{ tabBarBadge: 3 }}
-        />
-        <Tab.Screen
-          name="ScreenB"
-          component={ScreenB}
-          options={{ tabBarBadge: 2 }}
-        />
-      </Tab.Navigator>
+      <Drawer.Navigator>
+        <Drawer.Screen name="ScreenA" component={ScreenA} />
+        <Drawer.Screen name="ScreenB" component={ScreenB} />
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 }
