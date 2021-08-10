@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 
@@ -8,6 +9,7 @@ export default function ScreenA({ navigation }) {
 
   return (
     <View style={styles.body}>
+      <Ionicons name="md-person" size={30} color="black" />
       <Text style={styles.text}>Screen A</Text>
       <Button title="Go to Screen B" onPress={onPressHanlder} />
     </View>
