@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Alert, StyleSheet, Text, View } from "react-native";
+import CustomButton from "../components/CustomButton";
 
 const Home = ({ navigation }) => {
   const [name, setName] = useState("");
@@ -20,9 +21,20 @@ const Home = ({ navigation }) => {
     }
   };
 
+  const logout = async () => {
+    try {
+      await AsyncStorage.removeItem("Username");
+      Alert.alert("Removed !!!. Your name is removed !!!");
+      navigation.navigate("Login");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <View style={styles.body}>
       <Text style={styles.text}>Welcome {name}</Text>
+      <CustomButton title="Logout" handlePress={logout} />
     </View>
   );
 };
