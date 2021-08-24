@@ -1,22 +1,36 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as SQLite from "expo-sqlite";
 import React, { useEffect, useState } from "react";
 import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
 import CustomButton from "../components/CustomButton";
 
+const db = SQLite.openDatabase("dbName", 1.0);
+
 const Home = ({ navigation }) => {
   const [name, setName] = useState("");
+  const [age, setAge] = useState("");
 
   // Call only one time when the component is loaded
   useEffect(() => {
     getData();
   }, []);
 
-  const getData = async () => {
+  const getData = () => {
     try {
-      const value = await AsyncStorage.getItem("Username");
-      if (value !== null) {
-        setName(value);
-      }
+      db.transaction((tx) => {
+        console.log(123);
+        tx.executeSql("SELECT Name, Age FROM Users;", [], (tx, result) => {
+          console.log(JSON.stringify(result.rows));
+          var len = result.rows.length;
+          console.log(len);
+          if (len > 0) {
+            const userName = result.rows.item(0).Name;
+            const userAge = result.rows.item(0).Age;
+            setName(userName);
+            setAge(userAge);
+          }
+        });
+      });
     } catch (error) {
       console.log(error);
     }
@@ -45,6 +59,8 @@ const Home = ({ navigation }) => {
   return (
     <View style={styles.body}>
       <Text style={styles.text}>Welcome {name}</Text>
+      <Text style={styles.text}>Your Age: {age}</Text>
+
       <CustomButton title="Logout" handlePress={logout} />
       <View style={styles.updateInput}>
         <TextInput
@@ -68,6 +84,8 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: "bold",
     margin: 10,
+    justifyContent: "center",
+    textAlign: "center",
   },
   input: {
     borderWidth: 1,

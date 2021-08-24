@@ -1,14 +1,18 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as SQLite from "expo-sqlite";
 import React, { useEffect, useState } from "react";
 import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
 import CustomButton from "../components/CustomButton";
 
+const db = SQLite.openDatabase("dbName", 1.0);
+
 const Login = ({ navigation }) => {
   const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
+  const [age, setAge] = useState("");
 
   useEffect(() => {
-    checkLogin();
+    createTable();
+    // checkLogin();
   }, []);
 
   const checkLogin = async () => {
@@ -22,19 +26,33 @@ const Login = ({ navigation }) => {
     }
   };
 
-  const onPressHanlder = async () => {
-    if (name.length === 0 || password.length === 0) {
-      Alert.alert("Warning !!!. Please enter your name and password !!!");
+  const login = () => {
+    if (name.length === 0 || age.length === 0) {
+      Alert.alert("Warning !!!. Please enter your name and age !!!");
     } else {
       try {
-        await AsyncStorage.setItem("Username", name);
-        setName("");
-        setPassword("");
+        db.transaction((tx) => {
+          tx.executeSql(
+            "INSERT INTO Users (Name, Age) VALUES (?,?);",
+            [name, age],
+            (tx, results) => {
+              console.log(results.rowsAffected);
+            }
+          );
+        });
         navigation.navigate("Home");
       } catch (error) {
         console.log(error);
       }
     }
+  };
+
+  const createTable = () => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        "CREATE TABLE IF NOT EXISTS Users(Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, Age INTEGER);"
+      );
+    });
   };
 
   return (
@@ -48,12 +66,11 @@ const Login = ({ navigation }) => {
       />
       <TextInput
         style={styles.input}
-        placeholder="Enter password"
-        onChangeText={(value) => setPassword(value)}
-        value={password}
-        secureTextEntry={true}
+        placeholder="Enter your age"
+        onChangeText={(value) => setAge(value)}
+        value={age}
       />
-      <CustomButton title="Login" handlePress={onPressHanlder} />
+      <CustomButton title="Login" handlePress={login} />
     </View>
   );
 };
