@@ -6,7 +6,7 @@ import CustomButton from "../components/CustomButton";
 const Login = ({ navigation }) => {
   const [name, setName] = useState("");
 
-  useEffect(async () => {
+  useEffect(() => {
     checkLogin();
   }, []);
 
@@ -27,6 +27,7 @@ const Login = ({ navigation }) => {
     } else {
       try {
         await AsyncStorage.setItem("Username", name);
+        setName("");
         navigation.navigate("Home");
       } catch (error) {
         console.log(error);
@@ -41,6 +42,7 @@ const Login = ({ navigation }) => {
         style={styles.input}
         placeholder="Enter your name"
         onChangeText={(value) => setName(value)}
+        value={name}
       />
       <CustomButton title="Login" handlePress={onPressHanlder} />
     </View>
