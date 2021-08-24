@@ -5,6 +5,7 @@ import CustomButton from "../components/CustomButton";
 
 const Login = ({ navigation }) => {
   const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
     checkLogin();
@@ -22,12 +23,13 @@ const Login = ({ navigation }) => {
   };
 
   const onPressHanlder = async () => {
-    if (name.length === 0) {
-      Alert.alert("Warning !!!. Please enter your name !!!");
+    if (name.length === 0 || password.length === 0) {
+      Alert.alert("Warning !!!. Please enter your name and password !!!");
     } else {
       try {
         await AsyncStorage.setItem("Username", name);
         setName("");
+        setPassword("");
         navigation.navigate("Home");
       } catch (error) {
         console.log(error);
@@ -43,6 +45,13 @@ const Login = ({ navigation }) => {
         placeholder="Enter your name"
         onChangeText={(value) => setName(value)}
         value={name}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Enter password"
+        onChangeText={(value) => setPassword(value)}
+        value={password}
+        secureTextEntry={true}
       />
       <CustomButton title="Login" handlePress={onPressHanlder} />
     </View>

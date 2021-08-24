@@ -6,6 +6,7 @@ import CustomButton from "../components/CustomButton";
 const Home = ({ navigation }) => {
   const [name, setName] = useState("");
 
+  // Call only one time when the component is loaded
   useEffect(() => {
     getData();
   }, []);
