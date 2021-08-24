@@ -1,14 +1,28 @@
-import React from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 const Home = ({ navigation }) => {
-  const onPressHanlder = () => {
-    navigation.navigate("ScreenA");
+  const [name, setName] = useState("");
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem("Username");
+      if (value !== null) {
+        setName(value);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <View style={styles.body}>
-      <Text>Welcome Home</Text>
+      <Text style={styles.text}>Welcome {name}</Text>
     </View>
   );
 };
