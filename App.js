@@ -1,68 +1,33 @@
-import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import { StyleSheet } from "react-native";
-import { createNativeStackNavigator } from "react-native-screens/native-stack";
-import ScreenA from "./screens/ScreenA";
-import ScreenB from "./screens/ScreenB";
+import Home from "./screens/Home";
+import Login from "./screens/Login";
 
-const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-const Drawer = createDrawerNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Drawer.Navigator
-        screenOptions={{
-          headerTitleStyle: {
-            fontSize: 25,
-            fontWeight: "bold",
-          },
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: "#0000ff",
-          },
-          headerTitleAlign: "center",
-          headerTintColor: "#ffffff",
-        }}
-        drawerStyle={{
-          backgroundColor: "#e6e6e6",
-          width: 250,
-        }}
-        edgeWidth={900}
-        initialRouteName="ScreenB"
-        hideStatueBar={false}
-      >
-        <Drawer.Screen
+      <Tab.Navigator>
+        <Tab.Screen
           options={{
-            title: "Screen A Title",
+            title: "Login Screen",
             // eslint-disable-next-line react/display-name
-            drawerIcon: () => (
-              <Ionicons name="settings" size={24} color="black" />
-            ),
           }}
-          name="ScreenA"
-          component={ScreenA}
+          name="Login"
+          component={Login}
         />
-        <Drawer.Screen
+        <Tab.Screen
           options={{
-            title: "Screen B Title",
+            title: "Home Screen",
             // eslint-disable-next-line react/display-name
-            drawerIcon: () => (
-              <Ionicons name="md-person" size={24} color="black" />
-            ),
           }}
-          name="ScreenB"
-          component={ScreenB}
-          initialParams={{
-            itemName: "This is initial Params",
-            itemId: 100,
-          }}
+          name="Home"
+          component={Home}
         />
-      </Drawer.Navigator>
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
