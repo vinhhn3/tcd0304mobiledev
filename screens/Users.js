@@ -29,6 +29,9 @@ const Users = () => {
     },
   ]);
 
+  const [data, setData] = useState([]);
+  const [user, setUser] = useState({});
+
   useEffect(() => {
     getUsers();
   }, []);
@@ -37,7 +40,15 @@ const Users = () => {
     try {
       db.transaction((tx) => {
         tx.executeSql("SELECT * FROM Users", [], (tx, result) => {
+          var len = result.rows.length;
           console.log(JSON.stringify(result.rows));
+          for (let i = 0; i < len; i++) {
+            let row = result.rows.item(i);
+            setData((prevState) => [
+              ...prevState,
+              { Id: row.Id, Name: row.Name, Age: row.Age },
+            ]);
+          }
         });
       });
     } catch (error) {
@@ -47,7 +58,7 @@ const Users = () => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={users}
+        data={data}
         keyExtractor={(item) => String(item.Id)}
         renderItem={({ item }) => <UserItem user={item} />}
       />

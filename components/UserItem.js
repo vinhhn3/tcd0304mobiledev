@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 const UserItem = ({ user }) => {
   return (
     <View style={styles.container}>
-      <View>
+      <View style={{ width: "90%" }}>
         <Text style={styles.id}>{user.Id}</Text>
         <Text style={styles.text}>{user.Name}</Text>
         <Text style={styles.text}>{user.Age}</Text>
