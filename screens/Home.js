@@ -14,6 +14,10 @@ const Home = ({ navigation }) => {
     getData();
   }, []);
 
+  const showUsers = () => {
+    navigation.navigate("Users");
+  };
+
   const getData = () => {
     try {
       db.transaction((tx) => {
@@ -102,7 +106,7 @@ const Home = ({ navigation }) => {
         <View style={{ marginBottom: 15 }}>
           <CustomButton title="Update" handlePress={updateData} />
         </View>
-        <CustomButton title="Show Users" />
+        <CustomButton title="Show Users" handlePress={showUsers} />
       </View>
     </View>
   );
