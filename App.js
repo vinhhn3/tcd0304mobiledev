@@ -1,17 +1,16 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import { StyleSheet } from "react-native";
 import Home from "./screens/Home";
 import Login from "./screens/Login";
 
-const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen
+      <Stack.Navigator>
+        <Stack.Screen
           options={{
             title: "Login Screen",
             // eslint-disable-next-line react/display-name
@@ -19,7 +18,7 @@ export default function App() {
           name="Login"
           component={Login}
         />
-        <Tab.Screen
+        <Stack.Screen
           options={{
             title: "Home Screen",
             // eslint-disable-next-line react/display-name
@@ -27,11 +26,7 @@ export default function App() {
           name="Home"
           component={Home}
         />
-      </Tab.Navigator>
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-//
-
-const styles = StyleSheet.create({});
