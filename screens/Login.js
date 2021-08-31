@@ -1,4 +1,3 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as SQLite from "expo-sqlite";
 import React, { useEffect, useState } from "react";
 import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
@@ -12,15 +11,29 @@ const Login = ({ navigation }) => {
 
   useEffect(() => {
     createTable();
-    // checkLogin();
+    checkLogin();
   }, []);
 
-  const checkLogin = async () => {
+  const checkLogin = () => {
+    /* AsyncStorage */
+    // try {
+    //   const value = await AsyncStorage.getItem("Username");
+    //   if (value !== null) {
+    //     navigation.navigate("Home");
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    /* SQLite */
     try {
-      const value = await AsyncStorage.getItem("Username");
-      if (value !== null) {
-        navigation.navigate("Home");
-      }
+      db.transaction((tx) => {
+        tx.executeSql("SELECT Name, Age FROM Users", [], (tx, result) => {
+          var len = result.rows.length;
+          if (len > 0) {
+            navigation.navigate("Home");
+          }
+        });
+      });
     } catch (error) {
       console.log(error);
     }
