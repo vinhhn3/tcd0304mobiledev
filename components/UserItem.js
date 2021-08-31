@@ -1,15 +1,18 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-const UserItem = ({ user }) => {
+const UserItem = ({ user, navigation }) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => navigation.navigate("UserDetail", { user })}
+    >
       <View style={{ width: "90%" }}>
         <Text style={styles.id}>{user.Id}</Text>
         <Text style={styles.text}>{user.Name}</Text>
         <Text style={styles.text}>{user.Age}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

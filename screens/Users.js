@@ -5,7 +5,7 @@ import UserItem from "../components/UserItem";
 
 const db = SQLite.openDatabase("dbName", 1.0);
 
-const Users = () => {
+const Users = ({ navigation }) => {
   const [users, setUsers] = useState([
     {
       Id: 1,
@@ -60,7 +60,9 @@ const Users = () => {
       <FlatList
         data={data}
         keyExtractor={(item) => String(item.Id)}
-        renderItem={({ item }) => <UserItem user={item} />}
+        renderItem={({ item }) => (
+          <UserItem user={item} navigation={navigation} />
+        )}
       />
     </View>
   );
