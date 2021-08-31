@@ -1,4 +1,3 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as SQLite from "expo-sqlite";
 import React, { useEffect, useState } from "react";
 import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
@@ -37,22 +36,54 @@ const Home = ({ navigation }) => {
   };
 
   const logout = async () => {
+    // AsyncStorage
+    // try {
+    //   await AsyncStorage.removeItem("Username");
+    //   Alert.alert("Removed !!!. Your name is removed !!!");
+    //   setName("");
+    //   navigation.navigate("Login");
+    // } catch (error) {
+    //   console.log(error);
+    // }
+
+    // SQLite
     try {
-      await AsyncStorage.removeItem("Username");
-      Alert.alert("Removed !!!. Your name is removed !!!");
-      setName("");
-      navigation.navigate("Login");
+      db.transaction((tx) => {
+        tx.executeSql("DELETE FROM Users WHERE id = 1", [], (tx, result) => {
+          navigation.navigate("Login");
+        });
+      });
     } catch (error) {
       console.log(error);
     }
   };
 
   const updateData = async () => {
+    // AsyncStorage
+    // if (name.length === 0) {
+    //   Alert.alert("Please enter your name");
+    // } else {
+    //   await AsyncStorage.setItem("Username", name);
+    //   Alert.alert("Your name is updated !!!");
+    // }
+
+    // SQLite
     if (name.length === 0) {
-      Alert.alert("Please enter your name");
+      Alert.alert("Please enter your updated name");
     } else {
-      await AsyncStorage.setItem("Username", name);
-      Alert.alert("Your name is updated !!!");
+      try {
+        db.transaction((tx) => {
+          tx.executeSql(
+            "UPDATE Users set name=? WHERE id = 2",
+            [name],
+            (tx, result) => {
+              Alert.alert("Your name is updated !!!");
+            }
+          );
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -68,7 +99,10 @@ const Home = ({ navigation }) => {
           placeholder="Enter your name"
           onChangeText={(value) => setName(value)}
         />
-        <CustomButton title="Update" handlePress={updateData} />
+        <View style={{ marginBottom: 15 }}>
+          <CustomButton title="Update" handlePress={updateData} />
+        </View>
+        <CustomButton title="Show Users" />
       </View>
     </View>
   );
